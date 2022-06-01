@@ -17,3 +17,28 @@ export const HeaderTitle = styled.Text`
   font-weight: bold;
 `;
 export const HeaderButtonSearch = styled.TouchableOpacity``;
+export const List = styled.FlatList`
+  max-height: 115px;
+  background-color: #EFEFEF;
+  margin: 0 18px;
+  border-radius: 8px;
+  z-index: 9;
+`;
+export const ContainerMain = styled.View`
+  flex: 1;
+  background-color: #FFFFFF;
+  margin-top: -30px;
+`;
+export const ListFavCategory = styled.FlatList`
+  margin-top: 50px;
+  max-height: 100px;
+  padding-left: 18px;
+`;
+export const HighContentText = styled.Text`
+  font-size: 22px;
+  padding: 18px 0;
+  margin-bottom: 14px;
+  font-weight: bold;
+  color: #162133;
+  margin-left: 18px;
+`;
