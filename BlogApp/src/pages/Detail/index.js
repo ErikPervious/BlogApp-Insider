@@ -1,7 +1,9 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Share } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather, Entypo } from '@expo/vector-icons';
+
+import { ModalWeb } from "../../components/ModalWeb";
 
 import api from '../../services/api';
 
@@ -15,7 +17,6 @@ import {
   Scroll, 
   Title
 } from "./styled";
-import { ModalWeb } from "../../components/ModalWeb";
 
 export function Detail() {
   const [postDetail, setPostDetail] = useState([]);

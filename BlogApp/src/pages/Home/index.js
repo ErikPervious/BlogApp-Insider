@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 
+import * as Animatable from 'react-native-animatable';
+
 import { ScreenLoading } from '../../components/ScreenLoading';
 import { CategoryItem } from '../../components/CategoryItem';
 import { FavoritePost } from '../../components/FavoritePost';
@@ -16,17 +18,19 @@ import {
   HeaderButtonSearch, 
   HeaderTitle, 
   HighContentText, 
-  List, 
+  List,
   ListFavCategory, 
   ListPosts, 
-  SafeArea 
+  SafeArea,
+  ListAnimated 
 } from './styled';
 
-export default function Home() {
+export function Home() {
   const [categories, setCategories] = useState([]);
   const [favCategory, setFavCategory] = useState([]);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const navigation = useNavigation();
 
@@ -37,8 +41,11 @@ export default function Home() {
   };
 
   async function getListPosts() {
+    setIsRefreshing(true);
+
     const response = await api.get('api/posts?populate=cover&sort=createdAt:desc');
     setPosts(response.data.data);
+    setIsRefreshing(false);
   };
 
   useEffect(() => {
@@ -62,7 +69,12 @@ export default function Home() {
   return (
     <SafeArea>
       <ContainerHeader>
-        <HeaderTitle>BlogApp</HeaderTitle>
+        <HeaderTitle 
+          animation="fadeInLeft" 
+          useNativeDriver={true}
+        >
+          BlogApp
+        </HeaderTitle>
         <HeaderButtonSearch
           onPress={() => navigation.navigate('Search')}
         >
@@ -78,7 +90,7 @@ export default function Home() {
             text="buscando dados..." 
           />
         ) : (<>
-          <List
+          <ListAnimated
             data={categories}
             key={item => String(item.id)}
             renderItem={({item}) => (
@@ -90,7 +102,10 @@ export default function Home() {
             horizontal={true}
             contentContainerStyle={{ paddingRight: 12 }}
             showsHorizontalScrollIndicator={false}
-          />
+            useNativeDriver={true}  
+            animation="fadeIn"
+            delay={500} 
+            />
           <ContainerMain>
             {favCategory.length !== 0 && (
               <ListFavCategory
@@ -111,9 +126,12 @@ export default function Home() {
             </HighContentText>
             <ListPosts
               data={posts}
+              style={{paddingHorizontal: 18}}
               showsVerticalScrollIndicator={false}
               keyExtractor={item => String(item.id)}
               renderItem={({item}) => <PostCard data={item} />}
+              onRefresh={getListPosts}
+              refreshing={isRefreshing}
             />
           </ContainerMain>
         </>)

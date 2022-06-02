@@ -9,15 +9,17 @@ export function CategoryItem({data, favorite}) {
 
   const navigation = useNavigation();
 
-  const propsCategory = {
-    id: data.id,
-    title: data?.attributes.name
-  }
+  function handleNavigate() {
+    navigation.navigate('Category', { 
+      id: data.id,
+      title: data?.attributes.name 
+    });
+  };
 
   return (
     <Container
       activeOpacity={0.8}
-      onPress={() => navigation.navigate('Category', { propsCategory })}
+      onPress={handleNavigate}
       onLongPress={favorite}
     >
       <IconImage

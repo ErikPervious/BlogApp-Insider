@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import * as Animatable from 'react-native-animatable';
 
 export const SafeArea = styled.View`
   flex: 1;
@@ -11,7 +12,7 @@ export const ContainerHeader = styled.View`
   padding: 18px 18px;
   margin-bottom: 24px;
 `;
-export const HeaderTitle = styled.Text`
+export const HeaderTitle = styled(Animatable.Text)`
   font-size: 28px;
   color: #FFFFFF;
   font-weight: bold;
@@ -44,5 +45,6 @@ export const HighContentText = styled.Text`
 `;
 export const ListPosts = styled.FlatList`
   flex: 1;
-  padding: 0 18px;
 `;
+
+export const ListAnimated = Animatable.createAnimatableComponent(List);
