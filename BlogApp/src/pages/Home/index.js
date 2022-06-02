@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 
-import { ScreenLoading } from '../../components/screenLoading';
+import { ScreenLoading } from '../../components/ScreenLoading';
 import { CategoryItem } from '../../components/CategoryItem';
 import { FavoritePost } from '../../components/FavoritePost';
+import { PostCard } from '../../components/PostCard';
 
 import { getFavorites, setFavorite } from '../../services/favorite';
 import api from '../../services/api';
@@ -17,12 +18,14 @@ import {
   HighContentText, 
   List, 
   ListFavCategory, 
+  ListPosts, 
   SafeArea 
 } from './styled';
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
   const [favCategory, setFavCategory] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const navigation = useNavigation();
@@ -33,21 +36,27 @@ export default function Home() {
     setFavCategory(response);
   };
 
+  async function getListPosts() {
+    const response = await api.get('api/posts?populate=cover&sort=createdAt:desc');
+    setPosts(response.data.data);
+  };
+
+  useEffect(() => {
+    async function loadData() {
+      const category = await api.get('/api/categories?populate=icon');
+      await getListPosts();
+      setCategories(category.data.data);
+      setLoading(false);
+    };
+    loadData();
+  }, []);
+
   useEffect(() => {
     async function favorite() {
       const response = await getFavorites();
       setFavCategory(response);
     };
     favorite();
-  }, []);
-
-  useEffect(() => {
-    async function loadData() {
-      const category = await api.get('/api/categories?populate=icon');
-      setCategories(category.data.data);
-      setLoading(false);
-    };
-    loadData();
   }, []);
 
   return (
@@ -100,6 +109,12 @@ export default function Home() {
             >
               Conteúdos em alta
             </HighContentText>
+            <ListPosts
+              data={posts}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => String(item.id)}
+              renderItem={({item}) => <PostCard data={item} />}
+            />
           </ContainerMain>
         </>)
       }

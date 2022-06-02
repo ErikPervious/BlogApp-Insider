@@ -36,9 +36,13 @@ export const ListFavCategory = styled.FlatList`
 `;
 export const HighContentText = styled.Text`
   font-size: 22px;
-  padding: 18px 0;
-  margin-bottom: 14px;
+  padding: 10px 0;
+  margin-bottom: 5px;
   font-weight: bold;
   color: #162133;
   margin-left: 18px;
+`;
+export const ListPosts = styled.FlatList`
+  flex: 1;
+  padding: 0 18px;
 `;
