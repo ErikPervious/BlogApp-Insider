@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Modal, Share } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather, Entypo } from '@expo/vector-icons';
@@ -39,18 +39,8 @@ export function Detail() {
         ${postLinks.map(item => item.url)}\n
         `
       });
-
-      if(result.action === Share.sharedAction) {
-        if(result.activityType) {
-          console.log('Activity');
-        } else {
-          console.log('compartilhou');
-        }
-      } else if (result.action === Share.dismissedAction) {
-        console.log('modal fechado');
-      }
-
     } catch (error) {
+      alert('Algo deu errado.')
       console.log(error);
     };
   };
@@ -69,7 +59,7 @@ export function Detail() {
     getPostDetail();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <HeaderIconButton onPress={handleShare}>
