@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 
@@ -17,10 +17,12 @@ import {
   ListFavCategory, 
   ListPosts, 
   SafeArea,
-  ListAnimated, 
-  HeaderButtonSearchAnimated,
-  ContainerMainAnimated
+  ListAnimated,
+  ContainerMainAnimated,
+  HeaderButtonsRightAnimated,
+  HeaderButton
 } from './styled';
+import { ThemeContext } from '../../contexts/useTheme';
 
 export function Home() {
   const [categories, setCategories] = useState([]);
@@ -28,6 +30,8 @@ export function Home() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const { theme, handleTheme } = useContext(ThemeContext);
 
   const navigation = useNavigation();
 
@@ -72,13 +76,25 @@ export function Home() {
         >
           BlogApp
         </HeaderTitle>
-        <HeaderButtonSearchAnimated
-          onPress={() => navigation.navigate('Search')}
+        <HeaderButtonsRightAnimated
           animation="fadeInRight" 
           useNativeDriver={true}
         >
-          <Feather name="search" size={27} color="#FFFFFF" />
-        </HeaderButtonSearchAnimated>
+          <HeaderButton
+            onPress={handleTheme}
+          >
+            <Feather 
+              name={theme === 'light' ? 'moon' : 'sun'}
+              size={27} 
+              color="#FFFFFF"
+            />
+          </HeaderButton>
+          <HeaderButton
+            onPress={() => navigation.navigate('Search')}
+          >
+            <Feather name="search" size={27} color="#FFFFFF" />
+          </HeaderButton>
+        </HeaderButtonsRightAnimated>
       </ContainerHeader>
       {loading
         ? (

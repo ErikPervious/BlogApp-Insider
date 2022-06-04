@@ -1,19 +1,23 @@
 import React, { useState } from "react";
+import { Keyboard } from "react-native";
 import { Feather } from '@expo/vector-icons';
 
-import api from "../../services/api";
+import * as Animatable from 'react-native-animatable';
 
 import { PostCard } from "../../components/PostCard";
+
+import api from "../../services/api";
 
 import { 
   ButtonSearch,
   Container, 
   ContainerInputSearch, 
-  InputSearch, 
-  ResultIsEmptyText
+  InputSearch,
+  ResultIsEmptyTextAnimated
 } from "./styled";
 import { ListPosts } from "../Home/styled";
-import { Keyboard, KeyboardAvoidingView } from "react-native";
+
+const ListPostsAnimated = Animatable.createAnimatableComponent(ListPosts);
 
 export function Search() {
   const [inputValue, setInputValue] = useState('');
@@ -45,7 +49,9 @@ export function Search() {
   };
 
   return (
-    <Container>
+    <Container
+      onSubmitEditing={handleSearchPost}
+    >
       <ContainerInputSearch>
         <InputSearch
           value={inputValue}
@@ -53,7 +59,9 @@ export function Search() {
           placeholder="O que está buscando?"
           selectionColor="#232630"
         />
-        <ButtonSearch onPress={handleSearchPost}>
+        <ButtonSearch 
+          onPress={handleSearchPost}
+        >
           <Feather
             name="search"
             size={25}
@@ -62,14 +70,21 @@ export function Search() {
         </ButtonSearch>
       </ContainerInputSearch>
       {resultIsEmpty && (
-        <ResultIsEmptyText>Ops... nada foi encontrado, tente novamente!</ResultIsEmptyText>
+        <ResultIsEmptyTextAnimated
+          animation="wobble"
+        >
+          Ops... nada foi encontrado, tente novamente!
+        </ResultIsEmptyTextAnimated>
       )}
-      <ListPosts
-        data={posts}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={item => String(item.id)}
-        renderItem={({item}) => <PostCard data={item} />}
-      />
+      {posts.length !== 0 && ( 
+        <ListPostsAnimated
+          data={posts}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={item => String(item.id)}
+          renderItem={({item}) => <PostCard data={item} />}
+          animation="fadeInUp"
+        />
+      )}
     </Container>
   )
 }

@@ -1,7 +1,9 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { Modal, Share } from "react-native";
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather, Entypo } from '@expo/vector-icons';
+
+import { ThemeContext } from "../../contexts/useTheme";
 
 import { ModalWeb } from "../../components/ModalWeb";
 
@@ -25,6 +27,8 @@ export function Detail() {
   const [linkOpened, setLinkOpened] = useState({});
 
   const bannerUrl = `http://192.168.15.6:1337${postDetail?.attributes?.cover?.data?.attributes?.url}`;
+
+  const { theme } = useContext(ThemeContext);
 
   const { params } = useRoute();
   const navigation = useNavigation();
@@ -86,7 +90,11 @@ export function Detail() {
                 key={item.id}
                 onPress={() => handleOpenLink(item)}
               >
-                <Feather name="link" color="#1E4687" size={14} />
+                <Feather 
+                  name="link" 
+                  color={theme === 'light' ? '#1E4687' : '#FFFF00'} 
+                  size={14} 
+                />
                 <LinkText>{item.name}</LinkText>
               </LinkButton>
             ))}

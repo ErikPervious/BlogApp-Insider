@@ -27,8 +27,10 @@ export const CardTitle = styled.Text`
   font-weight: bold;
   font-size: 14px;
   margin-bottom: 4px;
+  color: ${p => p.theme.TEXT_TITLE};
 `;
 export const CardDescription = styled.Text`
   font-size: 12px;
   line-height: 16px;
+  color: ${p => p.theme.TEXT_CONTENT};
 `;

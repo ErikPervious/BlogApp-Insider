@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: #FFFFFF;
+  background-color: ${p => p.theme.BACKGROUND};;
 `;
 export const ContainerLoading = styled.View`
   flex: 1;
@@ -14,15 +14,16 @@ export const ContainerIsEmpty = styled.View`
   padding: 18px;
 `;
 export const EmptyText = styled.Text`
-font-size: 16px;
-font-weight: bold;
+  font-size: 16px;
+  font-weight: bold;
+  color: ${p => p.theme.EMPTY_TEXT};
 `;
 export const EmptyButton = styled.TouchableOpacity`
-  background-color: #162133;
+  background-color: ${p => p.theme.EMPTY_BUTTON};
   padding: 8px;
   margin-top: 12px;
   border-radius: 4px;
 `;
 export const EmptyButtonText = styled.Text`
-  color: #FFFFFF;
+  color: ${p => p.theme.EMPTY_BUTTON_TEXT};
 `;

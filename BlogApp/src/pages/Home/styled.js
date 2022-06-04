@@ -18,7 +18,12 @@ export const HeaderTitle = styled(Animatable.Text)`
   color: #FFFFFF;
   font-weight: bold;
 `;
-export const HeaderButtonSearch = styled.TouchableOpacity``;
+export const HeaderButtonsRight = styled.View`
+  flex-direction: row;
+`;
+export const HeaderButton = styled.TouchableOpacity`
+  margin-left: 5px;
+`;
 export const List = styled.FlatList`
   max-height: 115px;
   background-color: #EFEFEF;
@@ -28,7 +33,7 @@ export const List = styled.FlatList`
 `;
 export const ContainerMain = styled.View`
   flex: 1;
-  background-color: #FFFFFF;
+  background-color: ${p => p.theme.BACKGROUND};
   margin-top: -30px;
 `;
 export const ListFavCategory = styled.FlatList`
@@ -41,7 +46,7 @@ export const HighContentText = styled.Text`
   padding: 10px 0;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #162133;
+  color: ${p => p.theme.HIGH_CONTENT};
   margin-left: 18px;
 `;
 export const ListPosts = styled.FlatList`
@@ -49,5 +54,5 @@ export const ListPosts = styled.FlatList`
 `;
 
 export const ListAnimated = Animatable.createAnimatableComponent(List);
-export const HeaderButtonSearchAnimated = Animatable.createAnimatableComponent(HeaderButtonSearch);
+export const HeaderButtonsRightAnimated = Animatable.createAnimatableComponent(HeaderButtonsRight);
 export const ContainerMainAnimated = Animatable.createAnimatableComponent(ContainerMain);

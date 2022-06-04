@@ -1,8 +1,10 @@
 import styled from 'styled-components/native';
 
+import * as Animatable from 'react-native-animatable';
+
 export const Container = styled.KeyboardAvoidingView`
   flex: 1;
-  background-color: #FFFFFF;
+  background-color: ${p => p.theme.BACKGROUND};
   padding: 18px;
 `;
 export const ContainerInputSearch = styled.View`
@@ -31,7 +33,9 @@ export const ButtonSearch = styled.TouchableOpacity`
 export const ContainerResultIsEmpty = styled.View``;
 export const ResultIsEmptyText = styled.Text`
   font-size: 14px;
-  color: #23263090;
+  color: ${p => p.theme.TEXT_CONTENT};
   text-align: center;
   font-weight: 500;
 `;
+
+export const ResultIsEmptyTextAnimated = Animatable.createAnimatableComponent(ResultIsEmptyText);

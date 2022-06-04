@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
-  background-color: #FFFFFF;
+  background-color: ${p => p.theme.BACKGROUND_CATEGORY};
   margin: 8px 0;
   margin-left: 8px;
   border-radius: 8px;
@@ -14,5 +14,5 @@ export const IconImage = styled.Image`
   height: 40px;
 `;
 export const IconName = styled.Text`
-
+  color: ${p => p.theme.CATEGORY_TEXT};
 `;
