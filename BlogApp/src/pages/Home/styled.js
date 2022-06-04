@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+
 import * as Animatable from 'react-native-animatable';
 
 export const SafeArea = styled.View`
@@ -48,3 +49,5 @@ export const ListPosts = styled.FlatList`
 `;
 
 export const ListAnimated = Animatable.createAnimatableComponent(List);
+export const HeaderButtonSearchAnimated = Animatable.createAnimatableComponent(HeaderButtonSearch);
+export const ContainerMainAnimated = Animatable.createAnimatableComponent(ContainerMain);

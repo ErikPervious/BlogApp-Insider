@@ -1,17 +1,41 @@
 import React from "react";
-import { Feather } from '@expo/vector-icons';
 
-import { Container, Text } from "./styled";
+import { 
+  ContainerAnimated,
+  FeatherAnimated,
+  TextAnimated
+} from "./styled";
 
 export function ScreenLoading({iconName, iconSize, iconColor, text}) {
+
+  const fadeIn = {
+    from: {
+      opacity: 0.3,
+    },
+    to: {
+      opacity: 1,
+    },
+  };
+
   return (
-    <Container>
-      <Feather 
+    <ContainerAnimated
+      animation={fadeIn}
+      iterationCount={1}
+    >
+      <FeatherAnimated
         name={iconName} 
         size={iconSize} 
         color={iconColor} 
+        animation={fadeIn}
+        iterationCount="infinite"
+        direction="alternate"
       />
-      <Text>{text}</Text>
-    </Container>
+      <TextAnimated
+        animation={fadeIn}
+        iterationCount={1}
+      >
+        {text}
+      </TextAnimated>
+    </ContainerAnimated>
   )
 }

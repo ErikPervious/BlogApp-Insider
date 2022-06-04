@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 
-import * as Animatable from 'react-native-animatable';
-
 import { ScreenLoading } from '../../components/ScreenLoading';
 import { CategoryItem } from '../../components/CategoryItem';
 import { FavoritePost } from '../../components/FavoritePost';
@@ -13,16 +11,15 @@ import { getFavorites, setFavorite } from '../../services/favorite';
 import api from '../../services/api';
 
 import { 
-  ContainerHeader, 
-  ContainerMain, 
-  HeaderButtonSearch, 
+  ContainerHeader,
   HeaderTitle, 
-  HighContentText, 
-  List,
+  HighContentText,
   ListFavCategory, 
   ListPosts, 
   SafeArea,
-  ListAnimated 
+  ListAnimated, 
+  HeaderButtonSearchAnimated,
+  ContainerMainAnimated
 } from './styled';
 
 export function Home() {
@@ -53,7 +50,7 @@ export function Home() {
       const category = await api.get('/api/categories?populate=icon');
       await getListPosts();
       setCategories(category.data.data);
-      setLoading(false);
+      setLoading(false); 
     };
     loadData();
   }, []);
@@ -75,11 +72,13 @@ export function Home() {
         >
           BlogApp
         </HeaderTitle>
-        <HeaderButtonSearch
+        <HeaderButtonSearchAnimated
           onPress={() => navigation.navigate('Search')}
+          animation="fadeInRight" 
+          useNativeDriver={true}
         >
           <Feather name="search" size={27} color="#FFFFFF" />
-        </HeaderButtonSearch>
+        </HeaderButtonSearchAnimated>
       </ContainerHeader>
       {loading
         ? (
@@ -102,11 +101,13 @@ export function Home() {
             horizontal={true}
             contentContainerStyle={{ paddingRight: 12 }}
             showsHorizontalScrollIndicator={false}
+            animation="fadeInRight"
             useNativeDriver={true}  
-            animation="fadeIn"
-            delay={500} 
             />
-          <ContainerMain>
+          <ContainerMainAnimated
+            animation="fadeIn"
+            useNativeDriver={true}
+          >
             {favCategory.length !== 0 && (
               <ListFavCategory
                 data={favCategory}
@@ -133,7 +134,7 @@ export function Home() {
               onRefresh={getListPosts}
               refreshing={isRefreshing}
             />
-          </ContainerMain>
+          </ContainerMainAnimated>
         </>)
       }
     </SafeArea>
