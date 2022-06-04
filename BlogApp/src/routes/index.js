@@ -13,9 +13,10 @@ export function Routes() {
     <Stack.Navigator
       screenOptions={{
         headerTintColor: '#FFFFFF',
-          headerStyle: {
-            backgroundColor: '#232630'
-          }
+        headerStyle: {
+          backgroundColor: '#232630'
+        },
+        gestureEnabled: true,
       }}
     >
       <Stack.Screen
@@ -26,16 +27,17 @@ export function Routes() {
       <Stack.Screen
         name="Detail"
         component={Detail}
-        options={{ headerTitle: 'Detalhes' }}
+        options={{ headerTitle: 'Detalhes', animation: 'fade_from_bottom' }}
       />
         <Stack.Screen
           name="Category"
           component={CategoryPosts}
+          options={{ animation: 'fade' }}
         />
       <Stack.Screen
         name="Search"
         component={Search}
-        options={{ headerTitle: 'Procurando algo?' }}
+        options={{ headerTitle: 'Procurando algo?', animation: 'slide_from_right' }}
       />
     </Stack.Navigator>
   );
